@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.PageObjects.ForgetPasswordPage;
-import ru.yandex.praktikum.PageObjects.LoginPage;
-import ru.yandex.praktikum.PageObjects.MainPage;
-import ru.yandex.praktikum.PageObjects.RegistrationPage;
+import ru.yandex.praktikum.page.objects.ForgetPasswordPage;
+import ru.yandex.praktikum.page.objects.LoginPage;
+import ru.yandex.praktikum.page.objects.MainPage;
+import ru.yandex.praktikum.page.objects.RegistrationPage;
 import ru.yandex.praktikum.steps.CreatingUserSteps;
 
 import java.time.Duration;
@@ -23,7 +23,6 @@ import static ru.yandex.praktikum.Statics.CREATE_ORDER_BUTTON_TEXT;
 @DisplayName("Авторизация")
 public class LoginTest {
     private final CreatingUserSteps userSteps = new CreatingUserSteps();
-    private final String browserType = "yandex"; // или "yandex"
     private String email;
     private String password;
     private String name;
@@ -44,7 +43,8 @@ public class LoginTest {
         name = RandomStringUtils.randomAlphabetic(5, 10);
         ValidatableResponse response = userSteps.createUser(email, password, name);
         accessToken = response.extract().path("accessToken");
-        driver = DriverFactory.getDriver(browserType);
+        String browser = System.getProperty("browser", "chrome");
+        driver = DriverFactory.getDriver(browser);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         mainPage = new MainPage(driver);
@@ -57,7 +57,7 @@ public class LoginTest {
     @Step("Авторизация через нажатие кнопки Личный кабинет")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithPersonalAccountButtonTest() {
+    public void loginWithPersonalAccountButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickPersonalAccountButton();
         loginPage.fillEmailField(email);
@@ -71,7 +71,7 @@ public class LoginTest {
     @Step("Авторизация через нажатие кнопки Войти в аккаунт")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithLoginButtonTest() {
+    public void loginWithLoginButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.fillEmailField(email);
@@ -86,9 +86,9 @@ public class LoginTest {
             "на которую заходим через флоу Личный кабинет->Зарегистрироваться")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithEnterButtonOnRegistrationPageThroughPersonalAccountButtonTest() {
+    public void loginWithEnterButtonOnRegistrationPageThroughPersonalAccountButtonTest() {
         driver.get(BASE_URL);
-        mainPage.clickPersonalAccountButton();
+          mainPage.clickPersonalAccountButton();
         loginPage.clickRegistrationButton();
         registrationPage.clickEnterButtonOnRegistrationPage();
         loginPage.fillEmailField(email);
@@ -103,7 +103,7 @@ public class LoginTest {
             "на которую заходим через флоу Личный кабинет->Зарегистрироваться")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithEnterButtonOnRegistrationPageThroughLoginButtonTest() {
+    public void loginWithEnterButtonOnRegistrationPageThroughLoginButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.clickRegistrationButton();
@@ -120,7 +120,7 @@ public class LoginTest {
             "на которую заходим через флоу Личный кабинет->Восстановить пароль")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithEnterButtonOnOnForgetPasswordPageThroughPersonalAccountButtonTest() {
+    public void loginWithEnterButtonOnOnForgetPasswordPageThroughPersonalAccountButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickPersonalAccountButton();
         loginPage.clickOnResetPasswordButton();
@@ -137,7 +137,7 @@ public class LoginTest {
             "на которую заходим через флоу Войти в аккаунт->Восстановить пароль")
     @Description("Успешная авторизация, автоматический переход на стартовую страницу," +
             "кнопка Войти в аккаунт поменялась на Оформить заказ")
-    public void LoginWithEnterButtonOnOnForgetPasswordPageThroughLoginButtonTest() {
+    public void loginWithEnterButtonOnOnForgetPasswordPageThroughLoginButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.clickOnResetPasswordButton();

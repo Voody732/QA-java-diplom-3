@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import ru.yandex.praktikum.PageObjects.LoginPage;
-import ru.yandex.praktikum.PageObjects.MainPage;
-import ru.yandex.praktikum.PageObjects.RegistrationPage;
+import ru.yandex.praktikum.page.objects.LoginPage;
+import ru.yandex.praktikum.page.objects.MainPage;
+import ru.yandex.praktikum.page.objects.RegistrationPage;
 
 import java.time.Duration;
 
@@ -18,7 +18,7 @@ import static ru.yandex.praktikum.Statics.BASE_URL;
 @Feature("Группа тестов для проверки регистрации пользователя")
 @DisplayName("Регистрация пользователя")
 public class RegistrationTest {
-    private final String browserType = "chrome"; // или "yandex"
+
     private WebDriver driver;
     private MainPage mainPage;
     private LoginPage loginPage;
@@ -31,7 +31,8 @@ public class RegistrationTest {
     @Before
     @Step("Создаем драйвер в зависимости от выбранного браузера")
     public void setUp() {
-        driver = DriverFactory.getDriver(browserType);
+        String browser = System.getProperty("browser", "chrome");
+        driver = DriverFactory.getDriver(browser);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         mainPage = new MainPage(driver);
@@ -47,7 +48,7 @@ public class RegistrationTest {
     @Test
     @Step("Регистрация через флоу Войти в аккаунт->Зарегистрироваться")
     @Description("Успешная регистрация")
-    public void RegistrationWithLoginButtonTest() {
+    public void registrationWithLoginButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.clickRegistrationButton();
@@ -60,7 +61,7 @@ public class RegistrationTest {
     @Test
     @Step("Регистрация через флоу Личный кабинет->Зарегистрироваться")
     @Description("Успешная регистрация")
-    public void RegistrationWithPersonalAccountButtonTest() {
+    public void registrationWithPersonalAccountButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickPersonalAccountButton();
         loginPage.clickRegistrationButton();
@@ -73,7 +74,7 @@ public class RegistrationTest {
     @Test
     @Step("Попытка регистрации с некорректной длинной пароля через флоу Войти в аккаунт->Зарегистрироваться")
     @Description("Сообщение об ошибке с текстом Некорректный пароль")
-    public void AlertWithWIncorrectPasswordRegistrationWithLoginButtonTest() {
+    public void alertWithWIncorrectPasswordRegistrationWithLoginButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.clickRegistrationButton();
@@ -89,7 +90,7 @@ public class RegistrationTest {
     @Test
     @Step("Попытка регистрации с некорректной длинной пароля через флоу Личный кабинет->Зарегистрироваться")
     @Description("Сообщение об ошибке с текстом Некорректный пароль")
-    public void AlertWithWIncorrectPasswordRegistrationWithPersonalAccountButtonTest() {
+    public void alertWithWIncorrectPasswordRegistrationWithPersonalAccountButtonTest() {
         driver.get(BASE_URL);
         mainPage.clickLoginButton();
         loginPage.clickRegistrationButton();

@@ -1,4 +1,4 @@
-package ru.yandex.praktikum.PageObjects;
+package ru.yandex.praktikum.page.objects;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -23,66 +23,67 @@ public class MainPage {
     private final By toSauce = By.xpath(".//h2[text()='Соусы']");
     private final By toFill = By.xpath(".//h2[text()='Начинки']");
     private final By toBun = By.xpath(".//h2[text()='Булки']");
+
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
 
     public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }
 
     public void clickPersonalAccountButton() {
-        driver.findElement(personalAccountButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(personalAccountButton)).click();
     }
 
     public String getCreateOrderButtonText() {
-        return driver.findElement(createOrderButton).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(createOrderButton)).getText();
     }
 
     public void clickOnBunButton() {
-        driver.findElement(bunButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(bunButton)).click();
     }
 
     public void clickOnFillButton() {
-        driver.findElement(fillButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(fillButton)).click();
     }
 
     public void clickOnSauceButton() {
-        driver.findElement(sauceButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(sauceButton)).click();
     }
 
-    public void compareCreateOrderButtonText(String expectedCreateOrderButton, String actualCreateOrderButton) {
-        Assert.assertEquals("Неверный текст на кнопке", expectedCreateOrderButton, actualCreateOrderButton);
+    public void compareCreateOrderButtonText(String expected, String actual) {
+        Assert.assertEquals("Неверный текст на кнопке", expected, actual);
     }
 
     public void waitSauceOnAir() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(sauceOnAir));
     }
 
     public void waitFillOnAir() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(fillOnAir));
     }
 
     public void waitBunOnAir() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(bunOnAir));
     }
 
-    public void scrollToSauce(){
-        WebElement element = driver.findElement(toSauce);
+    public void scrollToSauce() {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(toSauce));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 
-    public void scrollToFill(){
-        WebElement element = driver.findElement(toFill);
+    public void scrollToFill() {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(toFill));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
-    public void scrollToBun(){
-        WebElement element = driver.findElement(toBun);
+
+    public void scrollToBun() {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(toBun));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 }
