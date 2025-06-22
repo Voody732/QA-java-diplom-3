@@ -1,5 +1,6 @@
 package ru.yandex.praktikum.page.objects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,7 +17,7 @@ public class ForgetPasswordPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
-
+@Step("Нажатие на кнопку Войти на странице восстановления пароля")
     public void clickEnterButtonOnForgetPasswordPage() {
         wait.until(ExpectedConditions.elementToBeClickable(enterButtonOnForgetPasswordPage));
         driver.findElement(enterButtonOnForgetPasswordPage).click();

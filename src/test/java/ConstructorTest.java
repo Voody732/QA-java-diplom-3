@@ -10,7 +10,7 @@ import ru.yandex.praktikum.page.objects.MainPage;
 
 import java.time.Duration;
 
-import static ru.yandex.praktikum.Statics.BASE_URL;
+import static ru.yandex.praktikum.Statics.*;
 
 @Feature("Группа тестов для проверки переключения между разделами конструктора")
 @DisplayName("Конструктор заказа")
@@ -29,60 +29,77 @@ public class ConstructorTest {
     }
 
     @Test
-    @Step("Переход по клику в раздел Соусы из начального положения")
+    @DisplayName("Переход по клику в раздел Соусы из начального положения")
     @Description("Раздел Соусы активен")
     public void changeToSauceWithClickTest() {
         driver.get(BASE_URL);
         mainPage.clickOnSauceButton();
         mainPage.waitSauceOnAir();
+        boolean isDisplayed = mainPage.isSaucePartDisplayed();
+        assert isDisplayed : "Раздел 'Соусы' не отображается";
+        mainPage.verifyActiveSaucePart(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, SAUCE_PART_TEXT);
     }
 
     @Test
-    @Step("Переход по клику в раздел Начинки из начального положения")
+    @DisplayName("Переход по клику в раздел Начинки из начального положения")
     @Description("Раздел Начинки активен")
     public void changeToFillWithClickTest() {
         driver.get(BASE_URL);
         mainPage.clickOnFillButton();
         mainPage.waitFillOnAir();
+        boolean isDisplayed = mainPage.isFillPartDisplayed();
+        assert isDisplayed : "Раздел 'Начинки' не отображается";
+        mainPage.verifyActiveFillPart(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, FILL_PART_TEXT);
     }
 
     @Test
-    @Step("Переход по клику в раздел Булки, предварительно переходим в раздел Начинки из начального положения")
+    @DisplayName("Переход по клику в раздел Булки, предварительно переходим в раздел Начинки из начального положения")
     @Description("Раздел Булки активен")
     public void changeToBunWithClickTest() {
         driver.get(BASE_URL);
-
         mainPage.clickOnFillButton();
         mainPage.clickOnBunButton();
         mainPage.waitBunOnAir();
+        boolean isDisplayed = mainPage.isBunPartDisplayed();
+        assert isDisplayed : "Раздел 'Булки' не отображается";
+        mainPage.verifyActiveBunTab(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, BUN_PART_TEXT);
     }
 
     @Test
-    @Step("Переход скроллом в раздел Соусы из начального положения")
+    @DisplayName("Переход скроллом в раздел Соусы из начального положения")
     @Description("Раздел Соусы активен")
     public void changeToSauceWithScrollTest() {
         driver.get(BASE_URL);
         mainPage.scrollToSauce();
         mainPage.waitSauceOnAir();
+        boolean isDisplayed = mainPage.isSaucePartDisplayed();
+        assert isDisplayed : "Раздел 'Соусы' не отображается";
+        mainPage.verifyActiveSaucePart(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, SAUCE_PART_TEXT);
     }
 
     @Test
-    @Step("Переход скроллом в раздел Начинки из начального положения")
+    @DisplayName("Переход скроллом в раздел Начинки из начального положения")
     @Description("Раздел Начинки активен")
     public void changeToFillWithScrollTest() {
         driver.get(BASE_URL);
         mainPage.scrollToFill();
         mainPage.waitFillOnAir();
+        boolean isDisplayed = mainPage.isFillPartDisplayed();
+        assert isDisplayed : "Раздел 'Начинки' не отображается";
+        mainPage.verifyActiveFillPart(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, FILL_PART_TEXT);
     }
 
     @Test
-    @Step("Переход скроллом в раздел Булки, предварительно переходим в раздел Начинки из начального положения")
+    @DisplayName("Переход скроллом в раздел Булки, предварительно переходим в раздел Начинки из начального положения")
     @Description("Раздел Булки активен")
     public void changeToBunWithScrollTest() {
         driver.get(BASE_URL);
         mainPage.scrollToFill();
         mainPage.scrollToBun();
         mainPage.waitBunOnAir();
+        boolean isDisplayed = mainPage.isBunPartDisplayed();
+        assert isDisplayed : "Раздел 'Булки' не отображается";
+        mainPage.verifyActiveBunTab(EXPECTED_ON_AIR_CONSTRUCTOR_CLASS_NAME, BUN_PART_TEXT);
     }
 
     @After

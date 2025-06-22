@@ -46,7 +46,7 @@ public class RegistrationTest {
     }
 
     @Test
-    @Step("Регистрация через флоу Войти в аккаунт->Зарегистрироваться")
+    @DisplayName("Регистрация через флоу Войти в аккаунт->Зарегистрироваться")
     @Description("Успешная регистрация")
     public void registrationWithLoginButtonTest() {
         driver.get(BASE_URL);
@@ -59,7 +59,7 @@ public class RegistrationTest {
     }
 
     @Test
-    @Step("Регистрация через флоу Личный кабинет->Зарегистрироваться")
+    @DisplayName("Регистрация через флоу Личный кабинет->Зарегистрироваться")
     @Description("Успешная регистрация")
     public void registrationWithPersonalAccountButtonTest() {
         driver.get(BASE_URL);
@@ -72,7 +72,7 @@ public class RegistrationTest {
     }
 
     @Test
-    @Step("Попытка регистрации с некорректной длинной пароля через флоу Войти в аккаунт->Зарегистрироваться")
+    @DisplayName("Попытка регистрации с некорректной длинной пароля через флоу Войти в аккаунт->Зарегистрироваться")
     @Description("Сообщение об ошибке с текстом Некорректный пароль")
     public void alertWithWIncorrectPasswordRegistrationWithLoginButtonTest() {
         driver.get(BASE_URL);
@@ -88,7 +88,7 @@ public class RegistrationTest {
 
 
     @Test
-    @Step("Попытка регистрации с некорректной длинной пароля через флоу Личный кабинет->Зарегистрироваться")
+    @DisplayName("Попытка регистрации с некорректной длинной пароля через флоу Личный кабинет->Зарегистрироваться")
     @Description("Сообщение об ошибке с текстом Некорректный пароль")
     public void alertWithWIncorrectPasswordRegistrationWithPersonalAccountButtonTest() {
         driver.get(BASE_URL);
